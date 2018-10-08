@@ -11,6 +11,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.angoapp.cocktail_util.builder.CocktailQueryBuilder;
 import com.angoapp.cocktail_util.listener.DataListener;
 import com.angoapp.cocktail_util.model.Recipe;
 
@@ -40,7 +41,6 @@ public class MyService extends IntentService {
                 MyWebService.retrofit.create(MyWebService.class);
 
         Call<Recipe[]> call = webService.recipesAvailable();
-
         Recipe[] recipes;
 
         try {

@@ -14,6 +14,17 @@ import com.angoapp.cocktail_util.services.MyService;
 import java.util.List;
 
 public class CocktailQueryBuilder{
+    private String id;
+    private String[] tags;
+    private int limit;
+    private String category;
+    private boolean alcoholic = true;
+    private boolean non_alcoholic = true;
+
+    public final CocktailQueryBuilder withId(String id){this.id = id; return this;};
+    public final CocktailQueryBuilder limitTo(int limit){ this.limit = limit; return this; }
+    public final CocktailQueryBuilder withCategory(String category){this.category = category; return this;}
+    public final CocktailQueryBuilder withTags(String[] tags){this.tags = tags; return this;}
 
     public void build(Activity activity, DataListener listener){
         startService(activity);

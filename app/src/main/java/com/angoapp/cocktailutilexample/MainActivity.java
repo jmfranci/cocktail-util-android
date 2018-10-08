@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         MyService myService = new MyService();
+
         CocktailQueryBuilder cocktailQueryBuilder = new CocktailQueryBuilder();
 
         cocktailQueryBuilder.build(this, new DataListener() {
@@ -44,21 +45,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-//        myService.getRecipes(getApplicationContext(), new MyService.DataListener() {
-//            @Override
-//            public void onSuccess(List<Recipe> recipes) {
-//                mRecipeList = recipes;
-//                displayData();
-//            }
-//
-//            @Override
-//            public void onError(Error e) {
-//                Log.e("ERROR OCCURRED", e.getMessage());
-//            }
-//        });
-//
-//        getRecipes();
     }
 
     private void displayData() {
@@ -67,10 +53,4 @@ public class MainActivity extends AppCompatActivity {
             Log.i("RECIPES_LIST_NEW_METHOD", recipe.getName());
         }
     }
-
-//    private void getRecipes() {
-//        Log.e("getRecipes()", "chegeui");
-//        Intent intent = new Intent(this, MyService.class);
-//        startService(intent);
-//    }
 }
