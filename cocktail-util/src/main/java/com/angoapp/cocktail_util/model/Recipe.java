@@ -3,6 +3,8 @@ package com.angoapp.cocktail_util.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.angoapp.cocktail_util.builder.CocktailQueryBuilder;
+
 public class Recipe implements Parcelable{
     private String name;
 

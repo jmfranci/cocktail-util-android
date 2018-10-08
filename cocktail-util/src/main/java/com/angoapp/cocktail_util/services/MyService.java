@@ -11,6 +11,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.angoapp.cocktail_util.listener.DataListener;
 import com.angoapp.cocktail_util.model.Recipe;
 
 import java.io.IOException;
@@ -27,22 +28,6 @@ public class MyService extends IntentService {
     private static List<Recipe> mRecipeList;
     private static DataListener dataListener;
 
-    private static final BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            Recipe[] recipes = (Recipe[]) intent
-                    .getParcelableArrayExtra(MyService.MY_SERVICE_PAYLOAD);
-            if (recipes.length != 0) {
-                Toast.makeText(context, "Received " + recipes.length + "items from service", Toast.LENGTH_SHORT).show();
-                mRecipeList = Arrays.asList(recipes);
-
-                dataListener.onSuccess(mRecipeList);
-            }else{
-                dataListener.onError(new Error("API Internal Error"));
-            }
-        }
-    };
-
     public MyService() {
         super("MY_SERVICE");
     }
@@ -50,6 +35,7 @@ public class MyService extends IntentService {
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
+        Log.i("ON_HANDLE", "on handle intent");
         MyWebService webService =
                 MyWebService.retrofit.create(MyWebService.class);
 
@@ -62,37 +48,22 @@ public class MyService extends IntentService {
         } catch (IOException e) {
             e.printStackTrace();
             Log.e("MyService", "onHandleIntent " + e.getMessage());
+            dataListener.onError(new Error(e.getCause()));
             return;
         }
 
-        Intent messageIntent = new Intent(MY_SERVICE_MESSAGE);
-        messageIntent.putExtra(MY_SERVICE_PAYLOAD, recipes);
-        LocalBroadcastManager manager =
-                LocalBroadcastManager.getInstance(getApplicationContext());
-        manager.sendBroadcast(messageIntent);
+        mRecipeList = Arrays.asList(recipes);
+        dataListener.onSuccess(mRecipeList);
     }
 
-    private void startService(){
+//    private void startService(){
+//        Log.i("CalledStartService", "Called");
+//        Intent intent = new Intent(this, MyService.class);
+//        startService(intent);
+//    }
 
-    }
-    public static List<Recipe> getRecipes(Context context, DataListener listener) {
+    public void getRecipes(Context context, DataListener listener) {
+        Log.i("CalledListRecipe", "Called");
         dataListener = listener;
-        LocalBroadcastManager.getInstance(context)
-                .registerReceiver(mBroadcastReceiver,
-                        new IntentFilter(MyService.MY_SERVICE_MESSAGE));
-
-        return null;
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        LocalBroadcastManager.getInstance(getApplicationContext())
-                .unregisterReceiver(mBroadcastReceiver);
-    }
-
-    public interface DataListener {
-        public void onSuccess(List<Recipe> recipes);
-        public void onError(Error e);
     }
 }

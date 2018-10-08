@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.angoapp.cocktail_util.builder.CocktailQueryBuilder;
+import com.angoapp.cocktail_util.listener.DataListener;
 import com.angoapp.cocktail_util.model.Recipe;
 import com.angoapp.cocktail_util.services.MyService;
 import com.angoapp.cocktail_util.services.RecipesUtil;
@@ -26,8 +28,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getRecipes();
-        MyService.getRecipes(getApplicationContext(), new MyService.DataListener() {
+
+        MyService myService = new MyService();
+        CocktailQueryBuilder cocktailQueryBuilder = new CocktailQueryBuilder();
+
+        cocktailQueryBuilder.build(this, new DataListener() {
             @Override
             public void onSuccess(List<Recipe> recipes) {
                 mRecipeList = recipes;
@@ -36,9 +41,24 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onError(Error e) {
-                Log.e("ERROR OCCURRED", e.getMessage());
+
             }
         });
+
+//        myService.getRecipes(getApplicationContext(), new MyService.DataListener() {
+//            @Override
+//            public void onSuccess(List<Recipe> recipes) {
+//                mRecipeList = recipes;
+//                displayData();
+//            }
+//
+//            @Override
+//            public void onError(Error e) {
+//                Log.e("ERROR OCCURRED", e.getMessage());
+//            }
+//        });
+//
+//        getRecipes();
     }
 
     private void displayData() {
@@ -48,9 +68,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void getRecipes() {
-        Log.e("getRecipes()", "chegeui");
-        Intent intent = new Intent(this, MyService.class);
-        startService(intent);
-    }
+//    private void getRecipes() {
+//        Log.e("getRecipes()", "chegeui");
+//        Intent intent = new Intent(this, MyService.class);
+//        startService(intent);
+//    }
 }
