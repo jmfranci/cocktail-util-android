@@ -10,26 +10,6 @@ public class RecipesUtil {
 
     private RecipesUtil(){
 
-
-//        CocktailClient client = retrofit.create(CocktailClient.class);
-//        Call<List<Recipe>> call = client.recipesAvailable();
-//
-//        call.enqueue(new Callback<List<Recipe>>() {
-//            @Override
-//            public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
-//                recipes = response.body();
-//                recipes.notifyAll();
-//                for (Recipe recipe:
-//                     recipes) {
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<Recipe>> call, Throwable t) {
-//                Log.e("Error occurred", t.getMessage());
-//            }
-//        });
     }
 
     public static final RecipesUtil getInstance(){

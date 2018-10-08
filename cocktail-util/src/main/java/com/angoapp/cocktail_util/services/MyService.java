@@ -24,10 +24,9 @@ import retrofit2.Call;
 
 public class MyService extends IntentService {
 
-    public static final String MY_SERVICE_MESSAGE = "MY_SERVICE_MESSAGE";
-    public static final String MY_SERVICE_PAYLOAD = "MY_SERVICE_PAYLOAD";
-    private static List<Recipe> mRecipeList;
+    private List<Recipe> mRecipeList;
     private static DataListener dataListener;
+    private static CocktailQueryBuilder builder;
 
     public MyService() {
         super("MY_SERVICE");
@@ -56,14 +55,8 @@ public class MyService extends IntentService {
         dataListener.onSuccess(mRecipeList);
     }
 
-//    private void startService(){
-//        Log.i("CalledStartService", "Called");
-//        Intent intent = new Intent(this, MyService.class);
-//        startService(intent);
-//    }
-
-    public void getRecipes(Context context, DataListener listener) {
-        Log.i("CalledListRecipe", "Called");
-        dataListener = listener;
+    public void getRecipes(Context context, DataListener listener, CocktailQueryBuilder builder) {
+        this.builder = builder;
+        this.dataListener = listener;
     }
 }

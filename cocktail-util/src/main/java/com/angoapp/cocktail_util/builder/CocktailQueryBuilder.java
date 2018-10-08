@@ -25,15 +25,16 @@ public class CocktailQueryBuilder{
     public final CocktailQueryBuilder limitTo(int limit){ this.limit = limit; return this; }
     public final CocktailQueryBuilder withCategory(String category){this.category = category; return this;}
     public final CocktailQueryBuilder withTags(String[] tags){this.tags = tags; return this;}
+    public final CocktailQueryBuilder onlyAlcoholic(){this.non_alcoholic = false; this.alcoholic = true; return this; }
+    public final CocktailQueryBuilder onlyNonAlcoholic(){this.alcoholic = false; this.non_alcoholic = true; return this; }
 
     public void build(Activity activity, DataListener listener){
-        startService(activity);
         MyService myService = new MyService();
-        myService.getRecipes(activity.getApplicationContext(), listener);
+        myService.getRecipes(activity.getApplicationContext(), listener, this);
+        startService(activity);
     }
 
     private void startService(Activity activity){
-        Log.i("CocktailQuery Builder", "Called");
         Intent intent = new Intent(activity, MyService.class);
         activity.startService(intent);
     }
