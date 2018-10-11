@@ -7,30 +7,30 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.angoapp.cocktail_util.CocktailDebug;
 import com.angoapp.cocktail_util.listener.DataListener;
+import com.angoapp.cocktail_util.model.CocktailQuery;
 import com.angoapp.cocktail_util.model.Recipe;
 import com.angoapp.cocktail_util.services.MyService;
 
 import java.util.List;
 
 public class CocktailQueryBuilder{
-    private String id;
-    private String[] tags;
-    private int limit;
-    private String category;
-    private boolean alcoholic = true;
-    private boolean non_alcoholic = true;
+    private CocktailQuery query;
 
-    public final CocktailQueryBuilder withId(String id){this.id = id; return this;};
-    public final CocktailQueryBuilder limitTo(int limit){ this.limit = limit; return this; }
-    public final CocktailQueryBuilder withCategory(String category){this.category = category; return this;}
-    public final CocktailQueryBuilder withTags(String[] tags){this.tags = tags; return this;}
-    public final CocktailQueryBuilder onlyAlcoholic(){this.non_alcoholic = false; this.alcoholic = true; return this; }
-    public final CocktailQueryBuilder onlyNonAlcoholic(){this.alcoholic = false; this.non_alcoholic = true; return this; }
+    public CocktailQueryBuilder(){
+        query = new CocktailQuery();
+    }
+    public final CocktailQueryBuilder withId(String id){query.setId(id); return this;};
+    public final CocktailQueryBuilder limitTo(int limit){ query.setLimit(limit); return this; }
+    public final CocktailQueryBuilder withCategory(String category){query.setCategory(category); return this;}
+    public final CocktailQueryBuilder withTags(String tags[]){query.setTags(tags); return this;}
+    public final CocktailQueryBuilder onlyAlcoholic(){query.setNon_alcoholic(false); query.setAlcoholic(true); return this; }
+    public final CocktailQueryBuilder onlyNonAlcoholic(){query.setAlcoholic(false); query.setNon_alcoholic(true); return this; }
 
     public void build(Activity activity, DataListener listener){
         MyService myService = new MyService();
-        myService.getRecipes(activity.getApplicationContext(), listener, this);
+        myService.getRecipes(listener, query);
         startService(activity);
     }
 

@@ -1,22 +1,15 @@
 package com.angoapp.cocktailutilexample;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.angoapp.cocktail_util.builder.CocktailQueryBuilder;
 import com.angoapp.cocktail_util.listener.DataListener;
+import com.angoapp.cocktail_util.model.CocktailQuery;
 import com.angoapp.cocktail_util.model.Recipe;
 import com.angoapp.cocktail_util.services.MyService;
-import com.angoapp.cocktail_util.services.RecipesUtil;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -29,11 +22,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MyService myService = new MyService();
+        CocktailQueryBuilder builder = new CocktailQueryBuilder().withTags( new String[]{"Chartreuse", "Whiskey", "Vermouth"} );
 
-        CocktailQueryBuilder cocktailQueryBuilder = new CocktailQueryBuilder();
-
-        cocktailQueryBuilder.build(this, new DataListener() {
+        builder.build(this, new DataListener() {
             @Override
             public void onSuccess(List<Recipe> recipes) {
                 mRecipeList = recipes;
@@ -42,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onError(Error e) {
-
+                Log.e("My Error Message", e.getMessage());
             }
         });
     }
