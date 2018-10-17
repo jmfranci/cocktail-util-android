@@ -5,10 +5,7 @@ import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.angoapp.cocktail_util.builder.CocktailQueryBuilder;
-import com.angoapp.cocktail_util.listener.DataListener;
-import com.angoapp.cocktail_util.model.CocktailQuery;
-import com.angoapp.cocktail_util.model.Recipe;
+import com.angoapp.cocktail_util.listener.TagsDataListener;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -16,34 +13,28 @@ import java.util.List;
 
 import retrofit2.Call;
 
-public class MyService extends IntentService {
+public class TagsService extends IntentService {
 
-    private List<Recipe> mRecipeList;
-    private static DataListener dataListener;
-    private static CocktailQuery query;
+    private List<String> mTagsList;
+    private static TagsDataListener dataListener;
 
-    public MyService() {
-        super("MY_SERVICE");
+    public TagsService() {
+        super("MY_TAG_SERVICE");
     }
-
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
+        Log.i("HANDLE", "Handler Called");
         MyWebService webService =
                 MyWebService.retrofit.create(MyWebService.class);
 
-        Call<Recipe[]> call;
+        Call<String[]> call;
+        call = webService.getAllTags();
 
-        if(query.getTags().length !=0){
-            call = webService.getRecipes(query);
-        }else{
-            call = webService.getAllRecipes();
-        }
-
-        Recipe[] recipes;
+        String[] tags;
 
         try {
-            recipes = call.execute().body();
+            tags = call.execute().body();
         } catch (IOException e) {
             e.printStackTrace();
             Log.e("MyService", "onHandleIntent " + e.getMessage());
@@ -52,16 +43,14 @@ public class MyService extends IntentService {
         }
 
         try {
-            mRecipeList = Arrays.asList(recipes);
-            dataListener.onSuccess(mRecipeList);
+            //mTagsList = Arrays.asList(tags);
+            dataListener.onSuccess(tags);
         }catch (NullPointerException e){
             dataListener.onError(new Error("Null pointer exception occurred", e.getCause()));
         }
-
     }
 
-    public void getRecipes(DataListener listener, CocktailQuery query) {
-        this.query = query;
+    public void getTags(TagsDataListener listener){
         this.dataListener = listener;
     }
 }

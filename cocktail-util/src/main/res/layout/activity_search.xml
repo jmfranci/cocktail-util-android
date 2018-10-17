@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".activities.SearchActivity">
+
+    <AutoCompleteTextView
+        android:id="@+id/actv"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:hint="Add an ingredient"/>
+
+    <com.google.android.flexbox.FlexboxLayout
+
+        android:id="@+id/linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/actv"
+        app:flexDirection="row"
+        app:flexWrap="wrap"
+        app:alignItems="stretch"
+        app:alignContent="stretch">
+
+
+    </com.google.android.flexbox.FlexboxLayout>
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_below="@id/actv"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<TextView-->
+            <!--android:layout_width="150dp"-->
+            <!--android:layout_height="40dp"-->
+            <!--android:text="Ola Quiabos"-->
+            <!--android:textSize="25dp"-->
+            <!--android:background="#FF8012"/>-->
+
+        <!--<TextView-->
+            <!--android:layout_width="150dp"-->
+            <!--android:layout_height="40dp"-->
+            <!--android:text="Ola Quiabos"-->
+            <!--android:textSize="25dp"-->
+            <!--android:background="#FF4412"/>-->
+
+        <!--<TextView-->
+            <!--android:layout_width="150dp"-->
+            <!--android:layout_height="40dp"-->
+            <!--android:text="Ola Quiabos"-->
+            <!--android:textSize="25dp"-->
+            <!--android:background="#F441FF"/>-->
+
+        <!--<TextView-->
+            <!--android:layout_width="150dp"-->
+            <!--android:layout_height="40dp"-->
+            <!--android:text="Ola Quiabos"-->
+            <!--android:textSize="25dp"-->
+            <!--android:background="#FFF4FF"/>-->
+        <!---->
+    <!--</LinearLayout>-->
+
+    <Button
+        android:id="@+id/btn_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Search"
+        android:textAllCaps="true"
+        android:layout_alignParentBottom="true"/>
+
+
+</RelativeLayout>

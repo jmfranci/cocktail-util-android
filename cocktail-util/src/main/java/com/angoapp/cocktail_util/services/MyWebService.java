@@ -28,5 +28,8 @@ public interface MyWebService {
     @POST("api/v1/recipes/withTags/loose2")
     Call<Recipe[]> getRecipes(@Body CocktailQuery body);
 
+    @GET("api/v1/ingredients/tags/all")
+    Call<String[]> getAllTags();
+
 
 }

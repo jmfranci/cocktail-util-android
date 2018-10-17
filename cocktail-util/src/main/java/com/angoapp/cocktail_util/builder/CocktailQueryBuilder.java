@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.widget.EditText;
 
 import com.angoapp.cocktail_util.CocktailDebug;
 import com.angoapp.cocktail_util.listener.DataListener;
