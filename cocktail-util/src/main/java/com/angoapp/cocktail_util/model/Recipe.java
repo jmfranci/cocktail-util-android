@@ -7,9 +7,13 @@ import com.angoapp.cocktail_util.builder.CocktailQueryBuilder;
 
 public class Recipe implements Parcelable{
     private String name;
+    private String imageUrl;
+    private boolean isAlcoholic;
 
     protected Recipe(Parcel in) {
         name = in.readString();
+        imageUrl = in.readString();
+        isAlcoholic = Boolean.valueOf(in.readString());
     }
 
     public static final Creator<Recipe> CREATOR = new Creator<Recipe>() {
@@ -24,6 +28,14 @@ public class Recipe implements Parcelable{
         }
     };
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public boolean isAlcoholic(){
+        return isAlcoholic;
+    }
+
     public String getName() {
         return name;
     }
@@ -36,5 +48,7 @@ public class Recipe implements Parcelable{
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(this.name);
+        parcel.writeString(this.imageUrl);
+        parcel.writeString(String.valueOf(isAlcoholic));
     }
 }

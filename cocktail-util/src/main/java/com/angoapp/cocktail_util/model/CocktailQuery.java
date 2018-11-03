@@ -2,7 +2,7 @@ package com.angoapp.cocktail_util.model;
 
 public class CocktailQuery {
     private String id;
-    private String[] tags;
+    private String[] tags = {};
     private int limit;
     private String category;
 

@@ -3,6 +3,9 @@ package com.angoapp.cocktailutilexample;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
@@ -14,12 +17,16 @@ import com.angoapp.cocktail_util.listener.TagsDataListener;
 import com.angoapp.cocktail_util.model.CocktailQuery;
 import com.angoapp.cocktail_util.model.Recipe;
 import com.angoapp.cocktail_util.services.MyService;
+import com.angoapp.cocktailutilexample.adapters.RecyclerViewAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "MainActivity";
 
+    //
     private List<Recipe> mRecipeList;
 
     @Override
@@ -27,20 +34,29 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        CocktailQueryBuilder builder = new CocktailQueryBuilder().withTags( new String[]{"Chartreuse", "Whiskey", "Vermouth"} );
-////
-////        builder.build(this, new DataListener() {
-////            @Override
-////            public void onSuccess(List<Recipe> recipes) {
-////                mRecipeList = recipes;
-////                displayData();
-////            }
-////
-////            @Override
-////            public void onError(Error e) {
-////                Log.e("My Error Message", e.getMessage());
-////            }
-////        });
+        //CocktailQueryBuilder builder = new CocktailQueryBuilder().withTags( new String[]{"Chartreuse", "Whiskey", "Vermouth"} );
+        CocktailQueryBuilder builder = new CocktailQueryBuilder();
+
+        builder.build(this, new DataListener() {
+            @Override
+            public void onSuccess(List<Recipe> recipes) {
+                mRecipeList = recipes;
+                displayData();
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        initRecyclerView();
+                    }
+                });
+
+            }
+
+            @Override
+            public void onError(Error e) {
+                Log.e("My Error Message", e.getMessage());
+            }
+        });
 
 //        new IngredientQueryBuilder().getAllIngredientTags().build(this, new TagsDataListener() {
 //            @Override
@@ -65,6 +81,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void initRecyclerView(){
+        Log.d(TAG, "initRecyclerView: init recyclerview.");
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(mRecipeList,this);
+        Log.d(TAG, "List Size " + mRecipeList.size());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
     public void openSearchActivity(View view) {
         Intent intent = new Intent(MainActivity.this, SearchActivity.class);
         startActivity(intent);

@@ -10,7 +10,9 @@
         android:id="@+id/actv"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:hint="Add an ingredient"/>
+        android:hint="Add an ingredient"
+        android:inputType="text"
+        android:maxLines="1"/>
 
     <com.google.android.flexbox.FlexboxLayout
 

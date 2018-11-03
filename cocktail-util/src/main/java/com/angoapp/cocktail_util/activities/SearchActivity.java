@@ -1,6 +1,5 @@
 package com.angoapp.cocktail_util.activities;
 
-import android.app.IntentService;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,9 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +21,6 @@ import com.google.android.flexbox.FlexboxLayout;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.UUID;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -32,7 +28,8 @@ public class SearchActivity extends AppCompatActivity {
     private AutoCompleteTextView editText;
     private Button searchButton;
 
-    private final ArrayList<String> list = new ArrayList<>();
+    private final ArrayList<String> allTags = new ArrayList<>();
+    private final ArrayList<String> selectedTags = new ArrayList<>();
     private final ArrayList<TextView> textViews = new ArrayList<>();
 
     @Override
@@ -82,7 +79,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void getTagsFromDb() {
-        final ArrayAdapter adapter = new ArrayAdapter(SearchActivity.this, android.R.layout.simple_list_item_1, list);
+        final ArrayAdapter adapter = new ArrayAdapter(SearchActivity.this, android.R.layout.simple_list_item_1, allTags);
         editText.setAdapter(adapter);
 
         //Get tags from DB
@@ -92,7 +89,7 @@ public class SearchActivity extends AppCompatActivity {
                 Log.i("__TAGS__", "tags from search activity");
                 for (String str : tags){
                     Log.i("_NEW_TAG_", str);
-                    list.add(str);
+                    allTags.add(str);
                 }
                 adapter.notifyDataSetChanged();
             }
