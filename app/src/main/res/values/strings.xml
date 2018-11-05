@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">CocktailUtilExample</string>
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Bla
+        nditiis dolorum et exercitationem facere, id ipsam labore magni maiores, natus, nobis nostrum perspi
+        ciatis quibusdam quod rem sapiente tempora totam unde vero! Lorem ipsum dolor sit amet, consectetur adipisici
+        ng elit. Aliquid blanditiis deleniti enim esse harum iste optio recusandae repellat rerum tenetur! Beatae consequa
+        tur debitis dolorum perspiciatis reiciendis similique sit suscipit tempore. Lorem ipsum dolor sit amet, consec
+        tetur adipisicing elit. A accusamus aliquam atque, consequatur dolor dolorum facilis illo itaque maxime minima
+        nulla odio quia quibusdam quidem, rerum sed sint voluptas, voluptatibus. Lorem ipsum dolor sit amet, consect
+        etur adipisicing elit. Ad aspernatur consectetur dolorum excepturi libero qui ratione reiciendis rerum ullam vero! Ac
+        cusantium aut delectus doloremque dolorum error esse facere, id temporibus. Lorem ip</string>
 </resources>

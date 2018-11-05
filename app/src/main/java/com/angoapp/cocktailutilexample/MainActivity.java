@@ -8,6 +8,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
 
 import com.angoapp.cocktail_util.activities.SearchActivity;
 import com.angoapp.cocktail_util.builder.CocktailQueryBuilder;
@@ -89,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
+
     public void openSearchActivity(View view) {
         Intent intent = new Intent(MainActivity.this, SearchActivity.class);
         startActivity(intent);

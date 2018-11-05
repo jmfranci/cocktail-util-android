@@ -1,6 +1,7 @@
 package com.angoapp.cocktailutilexample.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -11,8 +12,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.angoapp.cocktail_util.model.CocktailQuery;
 import com.angoapp.cocktail_util.model.Recipe;
 import com.angoapp.cocktailutilexample.R;
+import com.angoapp.cocktailutilexample.activities.CocktailDetailsActivity;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
@@ -62,6 +65,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             @Override
             public void onClick(View view) {
                 Toast.makeText(mContext, "Clicked on: " + recipes.get(i).getName(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(mContext, CocktailDetailsActivity.class);
+                intent.putExtra("recipe", recipes.get(i));
+                mContext.startActivity(intent);
             }
         });
     }
